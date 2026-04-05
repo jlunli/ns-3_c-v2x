@@ -1,0 +1,26 @@
+## -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
+
+def build(bld):
+    module = bld.create_ns3_module("forensics", ["core", "network"])
+    module.source = [
+        "model/evidence_descriptor.cc",
+        "model/evidence_ring_buffer.cc",
+        "model/forensic_trigger.cc",
+        "model/edge_evidence_scheduler.cc",
+    ]
+
+    module_test = bld.create_ns3_module_test_library("forensics")
+    module_test.source = [
+        "test/forensics-test-suite.cc",
+    ]
+
+    headers = bld(features="ns3header")
+    headers.module = "forensics"
+    headers.source = [
+        "model/evidence_descriptor.h",
+        "model/evidence_ring_buffer.h",
+        "model/forensic_trigger.h",
+        "model/edge_evidence_scheduler.h",
+    ]
+
+    bld.ns3_python_bindings()
